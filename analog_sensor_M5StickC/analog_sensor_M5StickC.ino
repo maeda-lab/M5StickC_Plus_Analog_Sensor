@@ -15,6 +15,9 @@ void readSensorTask(void *pvParameters) {
     
     // ローパスフィルタ処理
     float newVal = sensorVal * (1.0 - expFilterSmoothingFactor) + (float)sensorValueInt * expFilterSmoothingFactor;
+
+    // ローバスフィルタ未適用
+    // float newVal = (float)sensorValueInt;// * (1.0 - expFilterSmoothingFactor) + (float)sensorValueInt * expFilterSmoothingFactor;
     
     // ミューテックスを取得してセンサー値を更新
     if (xSemaphoreTake(xMutex, portMAX_DELAY) == pdTRUE) {
